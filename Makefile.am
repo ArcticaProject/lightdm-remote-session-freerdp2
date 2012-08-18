@@ -3,8 +3,19 @@ pam_sessiondir = $(sysconfdir)/pam.d/
 pam_session_DATA = \
 	lightdm-remote-freerdp
 
+lightdm_sessiondir = $(datadir)/lightdm/remote-sessions
+lightdm_session_DATA = \
+	freerdp.desktop
+
+%.desktop: %.desktop.in
+	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+
 EXTRA_DIST = \
-	$(pam_session_DATA)
+	$(pam_session_DATA) \
+	freerdp.desktop.in
+
+CLEANFILES = \
+	freerdp.desktop
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 
