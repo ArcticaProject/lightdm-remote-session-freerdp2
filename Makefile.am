@@ -1,4 +1,11 @@
 
+pam_sessiondir = $(sysconfdir)/pam.d/
+pam_session_DATA = \
+	lightdm-remote-freerdp
+
+EXTRA_DIST = \
+	$(pam_session_DATA)
+
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 
 dist-hook:
