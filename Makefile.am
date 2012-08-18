@@ -10,9 +10,14 @@ lightdm_session_DATA = \
 %.desktop: %.desktop.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 
+session_startdir = $(pkglibexecdir)
+session_start_SCRIPTS = \
+	freerdp-session
+
 EXTRA_DIST = \
 	$(pam_session_DATA) \
-	freerdp.desktop.in
+	freerdp.desktop.in \
+	freerdp-session
 
 CLEANFILES = \
 	freerdp.desktop
