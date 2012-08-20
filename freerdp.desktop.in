@@ -5,4 +5,4 @@ Exec=@pkglibexecdir@/freerdp-session
 TryExec=@pkglibexecdir@/freerdp-session
 Icon=
 Type=Application
-X-LightDM-Remote-PAM-Session=lightdm-remote-freerdp
+X-LightDM-PAM-Service=lightdm-remote-freerdp
