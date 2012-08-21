@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ -e ~/.freerdp-socket ]; then
-	cat ~/.freerdp-socket | /usr/bin/xfreerdp --plugin rdpsnd.so --no-nla -f --from-stdin
-else
-	zenity --warning --text="Unable to locate FreeRDP socket"
-fi;

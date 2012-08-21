@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -e ~/.freerdp-socket ]; then
+	@pkglibexecdir@/socket-sucker | /usr/bin/xfreerdp --plugin rdpsnd.so --no-nla -f --from-stdin
+else
+	zenity --warning --text="Unable to locate FreeRDP socket"
+fi;
+
+rm -f ~/.freerdp-socket
