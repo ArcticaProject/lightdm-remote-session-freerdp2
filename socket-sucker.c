@@ -17,11 +17,16 @@ main (int argc, char * argv[])
 
 	bzero((char *)&serv_addr, sizeof(serv_addr));
 
+	const char * home = getenv("HOME");
+	if (home == NULL) {
+		return -1;
+	}
+
 	serv_addr.sun_family = AF_UNIX;
-	strcpy(serv_addr.sun_path, "/home/ted/.freerdp-socket");
+	snprintf(serv_addr.sun_path, sizeof(serv_addr.sun_path), "%s/%s", home, ".freerdp-socket");
 	servlen = strlen(serv_addr.sun_path) + sizeof(serv_addr.sun_family);
 
-	if ((socket_fd = socket(AF_UNIX, SOCK_STREAM,0)) < 0) {
+	if ((socket_fd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0) {
 		return -1;
 	}
 
