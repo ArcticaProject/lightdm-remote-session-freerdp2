@@ -18,7 +18,7 @@ freerdp-session: freerdp-session.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 	@chmod +x $@
 
-libexec_PROGRAMS = \
+pkglibexec_PROGRAMS = \
 	socket-sucker
 socket_sucker_SOURCES = \
 	socket-sucker.c
