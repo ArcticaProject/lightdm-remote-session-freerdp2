@@ -1,4 +1,4 @@
-AC_INIT([lightdm-remote-session-freerdp], [0.2])
+AC_INIT([lightdm-remote-session-freerdp], [0.3])
 
 AM_INIT_AUTOMAKE([1.11 -Wno-portability])
 AM_SILENT_RULES([yes])
