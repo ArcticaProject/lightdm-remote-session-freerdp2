@@ -14,6 +14,11 @@ session_startdir = $(pkglibexecdir)
 session_start_SCRIPTS = \
 	freerdp-session
 
+libexec_PROGRAMS = \
+	socket-sucker
+socket_sucker_SOURCES = \
+	socket-sucker.c
+
 EXTRA_DIST = \
 	$(pam_session_DATA) \
 	freerdp.desktop.in \
