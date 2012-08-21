@@ -14,6 +14,10 @@ session_startdir = $(pkglibexecdir)
 session_start_SCRIPTS = \
 	freerdp-session
 
+freerdp-session: freerdp-session.in
+	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+	@chmod +x $@
+
 libexec_PROGRAMS = \
 	socket-sucker
 socket_sucker_SOURCES = \
@@ -22,10 +26,11 @@ socket_sucker_SOURCES = \
 EXTRA_DIST = \
 	$(pam_session_DATA) \
 	freerdp.desktop.in \
-	freerdp-session
+	freerdp-session.in
 
 CLEANFILES = \
-	freerdp.desktop
+	freerdp.desktop \
+	freerdp-session
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 
