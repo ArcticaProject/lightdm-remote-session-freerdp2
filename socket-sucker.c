@@ -62,11 +62,14 @@ main (int argc, char * argv[])
 	int out = 0;
 
 	in = read(socket_fd, buffer, BUFFER_SIZE);
-	out = write(1, buffer, in);
+
+	if (in > 0) {
+		out = write(1, buffer, in);
+	}
 
 	close(socket_fd);
 
-	if (in == 0) {
+	if (in > 0 && out > 0) {
 		return 0;
 	} else {
 		return -1;
