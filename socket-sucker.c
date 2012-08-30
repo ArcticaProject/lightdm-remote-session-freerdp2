@@ -41,7 +41,12 @@ main (int argc, char * argv[])
 	}
 
 	serv_addr.sun_family = AF_UNIX;
-	snprintf(serv_addr.sun_path, sizeof(serv_addr.sun_path), "%s/%s", home, ".freerdp-socket");
+	
+	int printsize = snprintf(serv_addr.sun_path, sizeof(serv_addr.sun_path) - 1, "%s/%s", home, ".freerdp-socket");
+	if (printsize > sizeof(serv_addr.sun_path) - 1 || printsize < 0) {
+		return -1;
+	}
+
 	servlen = strlen(serv_addr.sun_path) + sizeof(serv_addr.sun_family);
 
 	if ((socket_fd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0) {
@@ -57,11 +62,14 @@ main (int argc, char * argv[])
 	int out = 0;
 
 	in = read(socket_fd, buffer, BUFFER_SIZE);
-	out = write(1, buffer, in);
+
+	if (in > 0) {
+		out = write(1, buffer, in);
+	}
 
 	close(socket_fd);
 
-	if (in == 0) {
+	if (in > 0 && out > 0) {
 		return 0;
 	} else {
 		return -1;

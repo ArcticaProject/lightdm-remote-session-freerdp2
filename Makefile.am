@@ -22,6 +22,11 @@ pkglibexec_PROGRAMS = \
 	socket-sucker
 socket_sucker_SOURCES = \
 	socket-sucker.c
+socket_sucker_CFLAGS = \
+	-Wall -Werror \
+	-fPIE
+socket_sucker_LDFLAGS = \
+	-pie
 
 EXTRA_DIST = \
 	$(pam_session_DATA) \
