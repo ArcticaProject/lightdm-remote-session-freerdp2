@@ -69,7 +69,7 @@ main (int argc, char * argv[])
 
 	close(socket_fd);
 
-	if (in > 0 && out > 0) {
+	if (in > 0 && out > 0 && in == out) {
 		return 0;
 	} else {
 		return -1;
