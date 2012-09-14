@@ -26,7 +26,9 @@ lightdm-remote-session-freerdp: lightdm-remote-session-freerdp.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 
 pkglibexec_PROGRAMS = \
-	socket-sucker
+	socket-sucker \
+	freerdp-session-wrapper
+
 socket_sucker_SOURCES = \
 	socket-sucker.c
 socket_sucker_CFLAGS = \
@@ -34,6 +36,12 @@ socket_sucker_CFLAGS = \
 	-fPIE
 socket_sucker_LDFLAGS = \
 	-pie
+
+freerdp_session_wrapper_SOURCES = \
+	freerdp-session-wrapper.c
+freerdp_session_wrapper_CFLAGS = \
+	-DPKGDATADIR="\"$(pkgdatadir)\"" \
+	-Wall -Werror
 
 EXTRA_DIST = \
 	$(pam_session_DATA) \
