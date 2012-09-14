@@ -10,7 +10,7 @@ lightdm_session_DATA = \
 %.desktop: %.desktop.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 
-session_startdir = $(pkglibexecdir)
+session_startdir = $(pkgdatadir)
 session_start_SCRIPTS = \
 	freerdp-session
 
