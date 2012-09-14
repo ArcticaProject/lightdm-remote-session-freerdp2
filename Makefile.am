@@ -18,6 +18,13 @@ freerdp-session: freerdp-session.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 	@chmod +x $@
 
+apparmordir = $(sysconfdir)/apparmor.d/
+apparmor_DATA = \
+	lightdm-remote-session-freerdp
+
+lightdm-remote-session-freerdp: lightdm-remote-session-freerdp.in
+	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+
 pkglibexec_PROGRAMS = \
 	socket-sucker
 socket_sucker_SOURCES = \
@@ -31,11 +38,13 @@ socket_sucker_LDFLAGS = \
 EXTRA_DIST = \
 	$(pam_session_DATA) \
 	freerdp.desktop.in \
-	freerdp-session.in
+	freerdp-session.in \
+	lightdm-remote-session-freerdp.in
 
 CLEANFILES = \
 	freerdp.desktop \
-	freerdp-session
+	freerdp-session \
+	lightdm-remote-session-freerdp
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 
