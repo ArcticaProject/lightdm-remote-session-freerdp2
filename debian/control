@@ -16,7 +16,7 @@ Vcs-Browser: https://github.com/ArcticaProject/lightdm-remote-session-freerdp2/
 
 Package: lightdm-remote-session-freerdp2
 Architecture: any
-Depends: 
+Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  socat,

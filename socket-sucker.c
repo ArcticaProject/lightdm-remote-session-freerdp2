@@ -41,7 +41,7 @@ main (int argc, char * argv[])
 	}
 
 	serv_addr.sun_family = AF_UNIX;
-	
+
 	int printsize = snprintf(serv_addr.sun_path, sizeof(serv_addr.sun_path) - 1, "%s/%s", home, ".freerdp2-socket");
 	if (printsize > sizeof(serv_addr.sun_path) - 1 || printsize < 0) {
 		return -1;
