@@ -5,7 +5,7 @@
 
 #include <tunables/global>
 
-@pkglibexecdir@/freerdp-session-wrapper {
+@pkglibexecdir@/freerdp2-session-wrapper {
   #include <abstractions/authentication>
   #include <abstractions/nameservice>
   #include <abstractions/wutmp>

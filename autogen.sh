@@ -1,9 +1,9 @@
 #!/bin/sh
 
-which gnome-autogen.sh || {
-    echo "Could not find 'gnome-autgen.sh'. Is gnome-common installed?"
+which mate-autogen || {
+    echo "Could not find 'mate-autogen'. Is mate-common installed?"
     exit 1
 }
 
-. gnome-autogen.sh
+. mate-autogen
 

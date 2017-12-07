@@ -1,33 +1,32 @@
-
 pam_sessiondir = $(sysconfdir)/pam.d/
 pam_session_DATA = \
-	lightdm-remote-freerdp
+	lightdm-remote-freerdp2
 
 lightdm_sessiondir = $(datadir)/lightdm/remote-sessions
 lightdm_session_DATA = \
-	freerdp.desktop
+	freerdp2.desktop
 
 %.desktop: %.desktop.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 
 session_startdir = $(pkgdatadir)
 session_start_SCRIPTS = \
-	freerdp-session
+	freerdp2-session
 
-freerdp-session: freerdp-session.in
+freerdp2-session: freerdp2-session.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 	@chmod +x $@
 
 apparmordir = $(sysconfdir)/apparmor.d/
 apparmor_DATA = \
-	lightdm-remote-session-freerdp
+	lightdm-remote-session-freerdp2
 
-lightdm-remote-session-freerdp: lightdm-remote-session-freerdp.in
+lightdm-remote-session-freerdp2: lightdm-remote-session-freerdp2.in
 	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
 
 pkglibexec_PROGRAMS = \
 	socket-sucker \
-	freerdp-session-wrapper
+	freerdp2-session-wrapper
 
 socket_sucker_SOURCES = \
 	socket-sucker.c
@@ -37,22 +36,22 @@ socket_sucker_CFLAGS = \
 socket_sucker_LDFLAGS = \
 	-pie
 
-freerdp_session_wrapper_SOURCES = \
-	freerdp-session-wrapper.c
-freerdp_session_wrapper_CFLAGS = \
+freerdp2_session_wrapper_SOURCES = \
+	freerdp2-session-wrapper.c
+freerdp2_session_wrapper_CFLAGS = \
 	-DPKGDATADIR="\"$(pkgdatadir)\"" \
 	-Wall -Werror
 
 EXTRA_DIST = \
 	$(pam_session_DATA) \
-	freerdp.desktop.in \
-	freerdp-session.in \
-	lightdm-remote-session-freerdp.in
+	freerdp2.desktop.in \
+	freerdp2-session.in \
+	lightdm-remote-session-freerdp2.in
 
 CLEANFILES = \
-	freerdp.desktop \
-	freerdp-session \
-	lightdm-remote-session-freerdp
+	freerdp2.desktop \
+	freerdp2-session \
+	lightdm-remote-session-freerdp2
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 
@@ -81,4 +80,3 @@ dist-hook:
 			else \
 				echo Failed to generate AUTHORS: not a branch >&2; \
 	fi
-

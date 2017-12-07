@@ -1,0 +1,5 @@
+freerdp2-session
+freerdp2.desktop
+lightdm-remote-session-freerdp2
+compile
+.deps
