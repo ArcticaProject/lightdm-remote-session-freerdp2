@@ -1,0 +1,3 @@
+version=3
+opts=pgpsigurlmangle=s/$/.asc/ \
+http://releases.arctica-project.org/source/lightdm-remote-session-freerdp2/lightdm-remote-session-freerdp2-(.+)\.tar\.gz

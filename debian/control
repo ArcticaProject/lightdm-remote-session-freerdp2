@@ -1,0 +1,31 @@
+Source: lightdm-remote-session-freerdp2
+Section: misc
+Priority: optional
+Maintainer: Artica Project <devs@lists.arctica-project.org>
+Uploaders:
+ Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+Build-Depends:
+ debhelper (>= 9),
+ dh-apparmor,
+ cdbs,
+ dh-autoreconf,
+Standards-Version: 4.1.1
+Homepage: http://github.com/ArcticaProject/lightdm-remote-session-freerdp2
+Vcs-Git: https://github.com/ArcticaProject/lightdm-remote-session-freerdp2/
+Vcs-Browser: https://github.com/ArcticaProject/lightdm-remote-session-freerdp2/
+
+Package: lightdm-remote-session-freerdp2
+Architecture: any
+Depends: 
+ ${shlibs:Depends},
+ ${misc:Depends},
+ socat,
+ zenity,
+ freerdp-x11 (>= 2~),,
+ libpam-freerdp2,
+ lightdm (>= 1.3.3-0~),
+Suggests:
+ apparmor,
+Description: Log into RDP sessions via LightDM
+ The configuration files needed and scripts required to login
+ to a full screen RDP session using LightDM and FreeRDPv2.

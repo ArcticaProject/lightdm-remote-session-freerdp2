@@ -1,0 +1,6 @@
+lightdm-remote-session-freerdp2 (1.0.1-0) UNRELEASED; urgency=low
+
+  * Upstream-provided Debian package for nx-libs.
+    See upstream ChangeLog for recent changes.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 07 Dec 2017 09:18:41 +0100
