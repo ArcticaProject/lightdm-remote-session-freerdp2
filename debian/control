@@ -21,7 +21,7 @@ Depends:
  ${misc:Depends},
  socat,
  zenity,
- freerdp-x11 (>= 2~),,
+ freerdp2-x11 (>= 2~),
  libpam-freerdp2,
  lightdm (>= 1.3.3-0~),
 Suggests:
