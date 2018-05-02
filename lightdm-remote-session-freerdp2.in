@@ -67,6 +67,9 @@
 
   network,
 
+  dbus(send) bus=session,
+  dbus(send, receive) bus=accessibility,
+
   capability ipc_lock,
 
   # silence warnings for stuff that we really don't want to grant
