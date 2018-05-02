@@ -59,6 +59,13 @@
   # necessary for writing to sockets, etc.
   /{,var/}run/** rmkix,
   /{,var/}run/shm/** wl,
+  /run/systemd/journal/dev-log w,
+  /tmp/**/.x2go-socket r,
+  /tmp/.X11-unix/X[0-9]* wr,
+  /run/uuidd/request w,
+  /proc/sys/kernel/ngroups_max r,
+
+  network,
 
   capability ipc_lock,
 
