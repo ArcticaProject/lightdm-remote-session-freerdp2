@@ -7,14 +7,14 @@ lightdm_session_DATA = \
 	freerdp2.desktop
 
 %.desktop: %.desktop.in
-	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 session_startdir = $(pkgdatadir)
 session_start_SCRIPTS = \
 	freerdp2-session
 
 freerdp2-session: freerdp2-session.in
-	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 	@chmod +x $@
 
 apparmordir = $(sysconfdir)/apparmor.d/
@@ -22,19 +22,10 @@ apparmor_DATA = \
 	lightdm-remote-session-freerdp2
 
 lightdm-remote-session-freerdp2: lightdm-remote-session-freerdp2.in
-	@sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $< > $@
+	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-pkglibexec_PROGRAMS = \
-	socket-sucker \
+libexec_PROGRAMS = \
 	freerdp2-session-wrapper
-
-socket_sucker_SOURCES = \
-	socket-sucker.c
-socket_sucker_CFLAGS = \
-	-Wall -Werror \
-	-fPIE
-socket_sucker_LDFLAGS = \
-	-pie
 
 freerdp2_session_wrapper_SOURCES = \
 	freerdp2-session-wrapper.c
