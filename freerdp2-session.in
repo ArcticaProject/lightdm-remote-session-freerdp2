@@ -27,7 +27,7 @@ if [ -e "$socket" ]; then
 	AUTH_INFO_PASSWORD=$(echo "$AUTH_INFO" | awk '{ print $2 }')
 	AUTH_INFO_DOMAIN=$(echo "$AUTH_INFO" | awk '{ print $3 }')
 	AUTH_INFO_HOST=$(echo "$AUTH_INFO" | awk '{ print $4 }')
-	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /sound:sys:pulse /f /v:"${AUTH_INFO_HOST}" /u:"${AUTH_INFO_USER} /d:"${AUTH_INFO_DOMAIN} /from-stdin
+	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /sound:sys:pulse /f /v:"${AUTH_INFO_HOST}" /u:"${AUTH_INFO_USER}" /d:"${AUTH_INFO_DOMAIN}" /from-stdin
 	unset AUTH_INFO_PASSWORD
 else
 	zenity --warning --text="Unable to locate FreeRDP socket"
