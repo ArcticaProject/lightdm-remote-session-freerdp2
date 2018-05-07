@@ -51,7 +51,7 @@ if [ -e "$socket" ]; then
 	sleep 1
 
 	USERID=$(id -u)
-	wait $(pgrep -u ${USERID} xfreerdp
+	wait $(pgrep -u ${USERID} xfreerdp)
 
 	# FIXME: possibly stop pulseaudio here with -k again (we have seen permissioned denied warnings, when doing this. Better approaches?)
 
