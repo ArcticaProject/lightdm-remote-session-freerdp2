@@ -40,6 +40,7 @@ if [ -e "$socket" ]; then
 	                                               /u:"${AUTH_INFO_USER}"	\
 	                                               /d:"${AUTH_INFO_DOMAIN}"	\
 	                                               /from-stdin		\
+	                                               -toggle-fullscreen	\
 	\
 	                           | logger -t lightdm-remote-session-freerdp2 --
 
