@@ -27,7 +27,24 @@ if [ -e "$socket" ]; then
 	AUTH_INFO_PASSWORD=$(echo "$AUTH_INFO" | awk '{ print $2 }')
 	AUTH_INFO_DOMAIN=$(echo "$AUTH_INFO" | awk '{ print $3 }')
 	AUTH_INFO_HOST=$(echo "$AUTH_INFO" | awk '{ print $4 }')
-	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /sound:sys:pulse /f /v:"${AUTH_INFO_HOST}" /u:"${AUTH_INFO_USER}" /d:"${AUTH_INFO_DOMAIN}" /from-stdin | logger -t lightdm-remote-session-freerdp2 --
+
+	# FIXME: it seems, pulseaudio is not startet at this point for the guest user
+	# However, launching it here with pulseaudio -D feels wrong in the age of systemd
+
+	# give the RDP server a little bit of time to recover from libpam-freerdp2's freerdp2-auth-check test connect.
+	sleep 1
+
+	# FIXME: get audio working... add /sound:sys:pulse to xfreerdp cmdline args...
+	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /f			\
+	                                               /v:"${AUTH_INFO_HOST}"	\
+	                                               /u:"${AUTH_INFO_USER}"	\
+	                                               /d:"${AUTH_INFO_DOMAIN}"	\
+	                                               /from-stdin		\
+	\
+	                           | logger -t lightdm-remote-session-freerdp2 --
+
+	# FIXME: possibly stop pulseaudio here with -k again (we have seen permissioned denied warnings, when doing this. Better approaches?)
+
 	unset AUTH_INFO_PASSWORD
 else
 	zenity --warning --text="Unable to locate FreeRDP socket"
