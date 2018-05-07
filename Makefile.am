@@ -33,6 +33,10 @@ freerdp2_session_wrapper_CFLAGS = \
 	-DPKGDATADIR="\"$(pkgdatadir)\"" \
 	-Wall -Werror
 
+freerdp2_known_hosts2dir = $(sysconfdir)/arctica-greeter/guest-session/skel/.config/freerdp/
+freerdp2_known_hosts2_DATA = \
+	known_hosts2
+
 EXTRA_DIST = \
 	$(pam_session_DATA) \
 	freerdp2.desktop.in \
