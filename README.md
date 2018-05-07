@@ -8,6 +8,10 @@ adapted by various authors with the purpose of making Remote Logon
 against RDP servers via Arctica Greeter (formerly known as Unity Greeter)
 available on Ubuntu and non-Ubuntu systems alike.
 
+## Installation
+
+See https://github.com/ArcticaProject/ArcticaDocs/tree/master/ArcticaGreeter
+
 ## Configuration
 
 For this Remote Logon Add-on to work, you have to populate
@@ -17,3 +21,8 @@ For this Remote Logon Add-on to work, you have to populate
 ```
 
 with your RDP servers' host keys. Otherwise, logins will fail.
+
+## Limitations / Known Issues
+
+  * Sound not working, yet
+  * Usernames containig blanks are not supported.
