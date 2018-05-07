@@ -1,1 +1,5 @@
 # IMPORTANT: populate this file with your RDP server host keys
+#
+# And make sure to remove this comment, once host keys have been put in.
+# FreeRDP2 treats comments in this file as errors.
+# See: https://github.com/FreeRDP/FreeRDP/issues/4634
