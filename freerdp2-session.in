@@ -35,7 +35,6 @@ if [ -e "$socket" ]; then
 	sleep 1
 
 	# FIXME: get audio working... add /sound:sys:pulse to xfreerdp cmdline args...
-	(
 	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /f			\
 	                                               /v:"${AUTH_INFO_HOST}"	\
 	                                               /u:"${AUTH_INFO_USER}"	\
