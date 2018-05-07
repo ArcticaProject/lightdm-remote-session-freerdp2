@@ -35,6 +35,7 @@ if [ -e "$socket" ]; then
 	sleep 1
 
 	# FIXME: get audio working... add /sound:sys:pulse to xfreerdp cmdline args...
+	(
 	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /f			\
 	                                               /v:"${AUTH_INFO_HOST}"	\
 	                                               /u:"${AUTH_INFO_USER}"	\
@@ -42,11 +43,19 @@ if [ -e "$socket" ]; then
 	                                               /from-stdin		\
 	                                               -toggle-fullscreen	\
 	\
-	                           | logger -t lightdm-remote-session-freerdp2 --
+	                           | logger -t lightdm-remote-session-freerdp2 -- \
+	&
+
+	unset AUTH_INFO_PASSWORD
+
+	# wait for another second to give the xfreerdp process to settle in process list
+	sleep 1
+
+	USERID=$(id -u)
+	wait $(pgrep -u ${USERID} xfreerdp
 
 	# FIXME: possibly stop pulseaudio here with -k again (we have seen permissioned denied warnings, when doing this. Better approaches?)
 
-	unset AUTH_INFO_PASSWORD
 else
 	zenity --warning --text="Unable to locate FreeRDP socket"
 fi;
