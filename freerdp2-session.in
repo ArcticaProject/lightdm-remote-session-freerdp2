@@ -20,6 +20,12 @@
 # Author lightdm-remote-session-freerdp (where we forked from): Ted Gould <ted@canonical.com>
 #
 
+FREERDP2_OPTIONS = ""
+
+if [ -f /etc/default/lightdm-remote-session-freerdp2 ]; then
+	. /etc/default/lightdm-remote-session-freerdp2
+fi
+
 socket="$HOME/.freerdp2-socket";
 if [ -e "$socket" ]; then
 	AUTH_INFO="$(socat unix-connect:"$socket" -)"
@@ -41,6 +47,7 @@ if [ -e "$socket" ]; then
 	                                               /d:"${AUTH_INFO_DOMAIN}"	\
 	                                               /from-stdin		\
 	                                               -toggle-fullscreen	\
+	                                               ${FREERDP2_OPTIONS}	\
 	                                               2>&1			\
 	\
 	                           | logger -t lightdm-remote-session-freerdp2 -- \

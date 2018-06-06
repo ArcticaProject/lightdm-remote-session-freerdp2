@@ -1,0 +1,4 @@
+### lightdm-remote-session-freerdp2: Tweak the default behaviour.
+
+# Ignore host keys and allow connections to any RDP server (uncomment to have it set)
+#FREERDP2_OPTIONS+=" /cert-ignore"

@@ -22,6 +22,9 @@ For this Remote Logon Add-on to work, you have to populate
 
 with your RDP servers' host keys. Otherwise, logins will fail.
 
+Alternatively, add the /cert-ignore option to the set of FREERDP2_OPTIONS
+in /etc/default/lightdm-remote-session-freerdp2.
+
 ## Limitations / Known Issues
 
   * Sound not working, yet
