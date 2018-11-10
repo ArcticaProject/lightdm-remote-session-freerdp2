@@ -20,7 +20,8 @@
 # Author lightdm-remote-session-freerdp (where we forked from): Ted Gould <ted@canonical.com>
 #
 
-FREERDP2_OPTIONS = ""
+NULL=
+FREERDP2_OPTIONS=""
 
 if [ -f /etc/default/lightdm-remote-session-freerdp2 ]; then
 	. /etc/default/lightdm-remote-session-freerdp2
@@ -40,18 +41,22 @@ if [ -e "$socket" ]; then
 	# give the RDP server a little bit of time to recover from libpam-freerdp2's freerdp2-auth-check test connect.
 	sleep 1
 
+	FREERDP2_OPTIONS="/f				\
+	                  /v:"${AUTH_INFO_HOST}"	\
+	                  /u:"${AUTH_INFO_USER}"	\
+	                  /d:"${AUTH_INFO_DOMAIN}"	\
+	                  /from-stdin			\
+	                  -toggle-fullscreen		\
+	                  ${FREERDP2_OPTIONS}		\
+	                  ${NULL}"
+
+	logger -t $(basname $0) "xfreerdp called with options: ${FREERDP_OPTIONS}."
+
+
 	# FIXME: get audio working... add /sound:sys:pulse to xfreerdp cmdline args...
-	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp /f			\
-	                                               /v:"${AUTH_INFO_HOST}"	\
-	                                               /u:"${AUTH_INFO_USER}"	\
-	                                               /d:"${AUTH_INFO_DOMAIN}"	\
-	                                               /from-stdin		\
-	                                               -toggle-fullscreen	\
-	                                               ${FREERDP2_OPTIONS}	\
-	                                               2>&1			\
-	\
+	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp ${FREERDP_OPTIONS} 2>&1 \
 	                           | logger -t lightdm-remote-session-freerdp2 -- \
-	&
+	${NULL} &
 
 	unset AUTH_INFO_PASSWORD
 
