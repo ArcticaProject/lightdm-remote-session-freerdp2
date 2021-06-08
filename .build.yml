@@ -1,0 +1,99 @@
+#########################################################
+# THE FOLLOWING LINES IS USED BY docker-build
+##########################################################
+requires:
+  archlinux:
+    # Useful URL: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=lightdm-remote-session-freerdp2
+    - clang
+    - gcc
+    - git
+    - make
+    - startup-notification
+    - which
+    # FIXME: add missing build-dependencies
+
+  debian:
+    # Useful URL: https://salsa.debian.org/debian-remote-team/lightdm-remote-session-freerdp2
+    - autopoint
+    - clang
+    - clang-tools
+    - g++
+    - cppcheck
+    - git
+    - make
+    - autotools
+
+  ubuntu:
+    - autopoint
+    - clang
+    - clang-tools
+    - g++
+    - git
+    - make
+    - autotools
+
+variables:
+  - 'CHECKERS="
+    -enable-checker deadcode.DeadStores
+    -enable-checker alpha.deadcode.UnreachableCode
+    -enable-checker alpha.core.CastSize
+    -enable-checker alpha.core.CastToStruct
+    -enable-checker alpha.core.IdenticalExpr
+    -enable-checker alpha.core.SizeofPtr
+    -enable-checker alpha.security.ArrayBoundV2
+    -enable-checker alpha.security.MallocOverflow
+    -enable-checker alpha.security.ReturnPtrRange
+    -enable-checker alpha.unix.SimpleStream
+    -enable-checker alpha.unix.cstring.BufferOverlap
+    -enable-checker alpha.unix.cstring.NotNullTerminated
+    -enable-checker alpha.unix.cstring.OutOfBounds
+    -enable-checker alpha.core.FixedAddr
+    -enable-checker security.insecureAPI.strcpy"'
+
+build_scripts:
+  - if [ ${DISTRO_NAME} == "debian" ];then
+  -     export CFLAGS+=" -Wsign-compare -Wunused-parameter"
+  -     cppcheck --enable=warning,style,performance,portability,information,missingInclude .
+  - fi
+  -
+  - if [ -e ./autogen.sh ]; then
+  -     NOCONFIGURE=1 ./autogen.sh
+  -     scan-build $CHECKERS ./configure --prefix=/usr --enable-gtk-doc --enable-compile-warnings=maximum
+  - elif [ -e ./CMakeLists.txt ]; then
+  -     if [ ${DISTRO_NAME} == "debian" ];then
+  -         scan-build $CHECKERS cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_VERBOSE_MAKEFILE=ON -DENABLE_TESTS=ON
+  -     else
+  -         scan-build $CHECKERS cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_VERBOSE_MAKEFILE=ON
+  -     fi
+  - elif [ -e ./configure.ac ]; then
+  -     autoreconf -vfi
+  -     scan-build $CHECKERS ./configure --prefix=/usr --enable-gtk-doc --enable-compile-warnings=maximum
+  - else
+  -     exit 1
+  - fi
+  -
+  - if [ $CPU_COUNT -gt 1 ]; then
+  -     if [ ${DISTRO_NAME} == "debian" ];then
+  -         scan-build $CHECKERS --keep-cc --use-cc=clang --use-c++=clang++ -o html-report make -j $CPU_COUNT
+  -         make clean
+  -     fi
+  -     scan-build $CHECKERS --keep-cc -o html-report make -j $CPU_COUNT
+  - else
+  -     if [ ${DISTRO_NAME} == "debian" ];then
+  -         scan-build $CHECKERS --keep-cc --use-cc=clang --use-c++=clang++ -o html-report make
+  -         make clean
+  -     fi
+  -     scan-build $CHECKERS --keep-cc -o html-report make
+  - fi
+
+after_scripts:
+  - if [ ${BUILD_TYPE} == "scripts" ];then
+  -     XVFB_RUN="$(which xvfb-run || true)"
+  -     if [ ${DISTRO_NAME} == "debian" ];then
+  -         if [ -e ./autogen.sh ] || [ -e ./configure.ac ]; then
+  -             ${XVFB_RUN} make check
+  -         elif [ -e ./CMakeLists.txt ]; then
+  -             ${XVFB_RUN} env CTEST_OUTPUT_ON_FAILURE=1 make test
+  -         fi
+  -     fi
+  - fi
