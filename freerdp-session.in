@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #
-# Copyright © 2018 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
-# Copyright © 2012 Canonical Ltd.
+# Copyright (C) 2018-2024 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+# Copyright (C) 2012 Canonical Ltd.
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as
@@ -21,13 +21,13 @@
 #
 
 NULL=
-FREERDP2_OPTIONS=""
+FREERDP_OPTIONS=""
 
-if [ -f /etc/default/lightdm-remote-session-freerdp2 ]; then
-	. /etc/default/lightdm-remote-session-freerdp2
+if [ -f /etc/default/lightdm-remote-session-freerdp ]; then
+	. /etc/default/lightdm-remote-session-freerdp
 fi
 
-socket="$HOME/.freerdp2-socket";
+socket="$HOME/.freerdp-socket";
 if [ -e "$socket" ]; then
 	AUTH_INFO="$(socat unix-connect:"$socket" -)"
 	AUTH_INFO_USER=$(echo "$AUTH_INFO" | awk '{ print $1 }')
@@ -38,24 +38,24 @@ if [ -e "$socket" ]; then
 	# FIXME: it seems, pulseaudio is not started at this point for the guest user
 	# However, launching it here with pulseaudio -D feels wrong in the age of systemd
 
-	# give the RDP server a little bit of time to recover from libpam-freerdp2's freerdp2-auth-check test connect.
+	# give the RDP server a little bit of time to recover from libpam-freerdp's freerdp-auth-check test connect.
 	sleep 1
 
-	FREERDP2_OPTIONS="/f				\
-	                  /v:"${AUTH_INFO_HOST}"	\
-	                  /u:"${AUTH_INFO_USER}"	\
-	                  /d:"${AUTH_INFO_DOMAIN}"	\
-	                  /from-stdin			\
-	                  -toggle-fullscreen		\
-	                  ${FREERDP2_OPTIONS}		\
-	                  ${NULL}"
+	FREERDP_OPTIONS="/f				\
+	                 /v:"${AUTH_INFO_HOST}"		\
+	                 /u:"${AUTH_INFO_USER}"		\
+	                 /d:"${AUTH_INFO_DOMAIN}"	\
+	                 /from-stdin			\
+	                 -toggle-fullscreen		\
+	                 ${FREERDP_OPTIONS}		\
+	                 ${NULL}"
 
 	logger -t $(basname $0) "xfreerdp called with options: ${FREERDP_OPTIONS}."
 
 
 	# FIXME: get audio working... add /sound:sys:pulse to xfreerdp cmdline args...
 	echo "$AUTH_INFO_PASSWORD" | /usr/bin/xfreerdp ${FREERDP_OPTIONS} 2>&1 \
-	                           | logger -t lightdm-remote-session-freerdp2 -- \
+	                           | logger -t lightdm-remote-session-freerdp -- \
 	${NULL} &
 
 	unset AUTH_INFO_PASSWORD

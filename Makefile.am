@@ -1,52 +1,52 @@
 pam_sessiondir = $(sysconfdir)/pam.d/
 pam_session_DATA = \
-	lightdm-remote-freerdp2
+	lightdm-remote-freerdp
 
 lightdm_sessiondir = $(datadir)/lightdm/remote-sessions
 lightdm_session_DATA = \
-	freerdp2.desktop
+	freerdp.desktop
 
 %.desktop: %.desktop.in
 	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 session_startdir = $(pkgdatadir)
 session_start_SCRIPTS = \
-	freerdp2-session
+	freerdp-session
 
-freerdp2-session: freerdp2-session.in
+freerdp-session: freerdp-session.in
 	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 	@chmod +x $@
 
 apparmordir = $(sysconfdir)/apparmor.d/
 apparmor_DATA = \
-	lightdm-remote-session-freerdp2
+	lightdm-remote-session-freerdp
 
-lightdm-remote-session-freerdp2: lightdm-remote-session-freerdp2.in
+lightdm-remote-session-freerdp: lightdm-remote-session-freerdp.in
 	@sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 libexec_PROGRAMS = \
-	freerdp2-session-wrapper
+	freerdp-session-wrapper
 
-freerdp2_session_wrapper_SOURCES = \
-	freerdp2-session-wrapper.c
-freerdp2_session_wrapper_CFLAGS = \
+freerdp_session_wrapper_SOURCES = \
+	freerdp-session-wrapper.c
+freerdp_session_wrapper_CFLAGS = \
 	-DPKGDATADIR="\"$(pkgdatadir)\"" \
 	-Wall -Werror
 
-freerdp2_known_hosts2dir = $(sysconfdir)/arctica-greeter/guest-session/skel/.config/freerdp/
-freerdp2_known_hosts2_DATA = \
+freerdp_known_hosts2dir = $(sysconfdir)/arctica-greeter/guest-session/skel/.config/freerdp/
+freerdp_known_hosts2_DATA = \
 	known_hosts2
 
 EXTRA_DIST = \
 	$(pam_session_DATA) \
-	freerdp2.desktop.in \
-	freerdp2-session.in \
-	lightdm-remote-session-freerdp2.in
+	freerdp.desktop.in \
+	freerdp-session.in \
+	lightdm-remote-session-freerdp.in
 
 CLEANFILES = \
-	freerdp2.desktop \
-	freerdp2-session \
-	lightdm-remote-session-freerdp2
+	freerdp.desktop \
+	freerdp-session \
+	lightdm-remote-session-freerdp
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-localinstall
 

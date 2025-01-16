@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: lightdm-remote-session-freerdp2
+Upstream-Name: lightdm-remote-session-freerdp
 Upstream-Contact: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
-Source: https://github.com/ArcticaProject/lightdm-remote-session-freerdp2
+Source: https://github.com/ArcticaProject/lightdm-remote-session-freerdp
 
 Files: AUTHORS
  ChangeLog
@@ -10,26 +10,26 @@ Files: AUTHORS
  README.md
  autogen.sh
  configure.ac
- lightdm-remote-session-freerdp2.in
- lightdm-remote-freerdp2
- freerdp2.desktop.in
+ lightdm-remote-session-freerdp.in
+ lightdm-remote-freerdp
+ freerdp.desktop.in
 Copyright: 2012, Canonical Ltd.
-  2017, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+  2018-2024, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
 License: GPL-3
 Comment:
  Using license and copyright holders as found in code files.
 
-Files: freerdp2-session-wrapper.c
- freerdp2-session.in
+Files: freerdp-session-wrapper.c
+ freerdp-session.in
  socket-sucker.c
 Copyright: 2012, Canonical Ltd.
-  2017, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+  2018-2024, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
 License: GPL-3
 
 Files: debian/*
 Copyright:
  2012, Canonical Ltd.
- 2017, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+ 2017-2024, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
 License: GPL-3
 
 License: GPL-3

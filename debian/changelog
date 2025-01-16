@@ -1,3 +1,10 @@
+lightdm-remote-session-freerdp (3.0.0-0) UNRELEASED; urgency=low
+
+  * Upstream-provided Debian package for lightdm-remote-session-freerdp.
+    See upstream ChangeLog for recent changes.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 16 Jan 2024 08:11:29 +0100
+
 lightdm-remote-session-freerdp2 (2.0.0-0) unstable; urgency=low
 
   * Upstream-provided Debian package for lightdm-remote-session-freerdp2.

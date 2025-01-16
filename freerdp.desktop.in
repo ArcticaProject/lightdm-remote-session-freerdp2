@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=FreeRDP
+Comment=Full Screen RDP session
+Exec=@libexecdir@/freerdp-session-wrapper
+TryExec=@libexecdir@/freerdp-session-wrapper
+Icon=
+Type=Application
+X-LightDM-PAM-Service=lightdm-remote-freerdp

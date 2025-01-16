@@ -1,5 +1,6 @@
 /*
- * Copyright © 2012 Canonical Ltd.
+ * Copyright (C) 2012 Canonical Ltd.
+ * Copyirhgt (C) 2018-2024 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 3, as
@@ -23,7 +24,7 @@ int
 main (int __attribute__((unused)) argc, char __attribute__((unused)) *argv[])
 {
 	char * args[2];
-	args[0] = PKGDATADIR "/freerdp2-session";
+	args[0] = PKGDATADIR "/freerdp-session";
 	args[1] = NULL;
 
 	execvp(args[0], args);
